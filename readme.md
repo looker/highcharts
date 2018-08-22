@@ -7,12 +7,12 @@ Highcharts is extremely extendable, so why would we need to fork it? As it turns
 As was said above, there is exactly one codebase change in this fork to change the name of that global variable. However, you should also know I made some very minor changes to the package.json and the `.gitignore` to get this to play nicely with yarn and our codebase.
 
  - Changed the `main` in the package.json to `code/highcarts`
- - Removed the `code` directory from the `.gitignore` and adds it to the list of files in the package.json
+ - Changed the `code` directory to a submodule which we use as a distribution package
  - Removed 4 test assertions that relied on a specific timezone locale.
 
 ## Updating a building the code.
 
-If you upstream origin doesn't exist, you can add it with:
+If your upstream origin doesn't exist, you can add it with:
 
 ```
 git remote add upstream https://github.com/highcharts/highcharts.git
@@ -26,18 +26,18 @@ git fetch upstream
 and:
 
 ```
-git pull upstream master
+git pull upstream vX.Y.Z
 ```
 
-This will pull in the latest master from highcharts. There should not be any conflicts, but if there are, refer to the changes above to resolve them correctly.
+This will pull in the specified from highcharts. There should not be any conflicts, but if there are, refer to the changes above to resolve them correctly.
 
-Once you have pulled in master and/or made your change. You have to build a new distribution. You can do this with:
+Once you have pulled in a new version and/or made your change. You have to build a new distribution. You can do this with:
 
 ```
 npm install && gulp dist
 ```
 
-The `dist` gulp task will build all of the files to the `code` directory. This will take a few minutes. Once it is complete, commit your code and PR it into this fork's master branch.
+The `dist` gulp task will build all of the files to the `code` directory. This will take a few minutes. Once it is complete, commit your code and PR it into this fork's master branch. Also, since `code` is a submodule, you will also have to `cd` into that and push to the master branch there. Once you do that, create a new release on the code submodule repo with a version number exactly matching the Highcharts version you pulled it.
 
 # Highcharts JS is a JavaScript charting library based on SVG, with fallbacks to VML and canvas for old browsers.
 
