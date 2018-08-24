@@ -3,3 +3,4 @@ samples/data/**/*.js
 samples/highcharts/common-js/**/*.js
 samples/static/*.js
 tools/eslint-plugin-highcharts/node_modules/**
+code/**/*.js
