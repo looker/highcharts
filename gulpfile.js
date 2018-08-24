@@ -1316,8 +1316,8 @@ gulp.task('dist', () => {
         .then(gulpify('styles', styles))
         .then(gulpify('scripts', getBuildScripts({}).fnFirstBuild))
         .then(gulpify('lint', lint))
-        .then(gulpify('compile', compileScripts))
-        .then(gulpify('cleanDist', cleanDist));
+        .then(gulpify('compile', compileScripts));
+        // .then(gulpify('cleanDist', cleanDist))
         // .then(gulpify('copyToDist', copyToDist))
         // .then(gulpify('createProductJS', createProductJS))
         // .then(gulpify('createExamples', createAllExamples))
