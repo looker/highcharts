@@ -1,8 +1,8 @@
 {
   "name": "highcharts",
-  "version": "6.1.1",
+  "version": "6.1.2",
   "description": "JavaScript charting framework",
-  "main": "code/highcharts",
+  "main": "build/dist/code/",
   "author": "Highsoft AS <support@highcharts.com> (http://www.highcharts.com/about)",
   "repository": {
     "type": "git",
@@ -19,14 +19,19 @@
     "webpack"
   ],
   "files": [
-    "code"
+    "./",
   ],
+  "publishConfig": {
+    "registry": "https://nexusrepo.looker.com/repository/looker-npm-private/"
+  },
   "scripts": {
     "test": "gulp test --all",
     "testall": "gulp test --all --browsers all",
     "precommit": "lint-staged && gulp test",
     "post-merge": "gulp styles && gulp scripts && npm test",
-    "jsdoc": "gulp jsdoc --watch"
+    "jsdoc": "gulp jsdoc --watch",
+    "prepublishOnly": "rm -rf build; mkdir -p build/dist; gulp dist",
+    "postinstall" : "mv -v code/* ./; rm -rf code"
   },
   "devDependencies": {
     "aws-sdk": "^2.94.0",
