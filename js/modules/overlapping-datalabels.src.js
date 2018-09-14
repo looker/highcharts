@@ -10,8 +10,6 @@ import '../parts/Chart.js';
 /**
  * Highcharts module to hide overlapping data labels. This module is included in
  * Highcharts.
- *
- * @ignore
  */
 var Chart = H.Chart,
     each = H.each,
@@ -77,7 +75,6 @@ addEvent(Chart, 'render', function collectAndHide() {
 Chart.prototype.hideOverlappingLabels = function (labels) {
 
     var len = labels.length,
-        ren = this.renderer,
         label,
         i,
         j,
@@ -104,8 +101,7 @@ Chart.prototype.hideOverlappingLabels = function (labels) {
                 parent,
                 bBox,
                 // Substract the padding if no background or border (#4333)
-                padding = 2 * (label.box ? 0 : (label.padding || 0)),
-                lineHeightCorrection = 0;
+                padding = 2 * (label.box ? 0 : (label.padding || 0));
 
             if (
                 label &&
@@ -122,15 +118,10 @@ Chart.prototype.hideOverlappingLabels = function (labels) {
                     bBox = label.getBBox();
                     label.width = bBox.width;
                     label.height = bBox.height;
-
-                    // Labels positions are computed from top left corner, so
-                    // we need to substract the text height from text nodes too.
-                    lineHeightCorrection = ren
-                        .fontMetrics(null, label.element).h;
                 }
                 return {
                     x: pos.x + (parent.translateX || 0),
-                    y: pos.y + (parent.translateY || 0) - lineHeightCorrection,
+                    y: pos.y + (parent.translateY || 0),
                     width: label.width - padding,
                     height: label.height - padding
                 };

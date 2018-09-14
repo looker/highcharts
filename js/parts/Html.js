@@ -35,9 +35,7 @@ extend(SVGElement.prototype, /** @lends SVGElement.prototype */ {
             element = wrapper.element,
             textWidth = styles && element.tagName === 'SPAN' && styles.width;
 
-        // When setting or unsetting the width style, we need to update
-        // transform (#8809)
-        if (textWidth || (wrapper.textWidth && !textWidth)) {
+        if (textWidth) {
             delete styles.width;
             wrapper.textWidth = textWidth;
             wrapper.htmlUpdateTransform();

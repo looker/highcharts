@@ -1952,32 +1952,20 @@ addEvent(Chart, 'update', function (e) {
 
     var chart = this,
         options = e.options,
-        optionsRangeSelector = options.rangeSelector,
         rangeSelector = chart.rangeSelector,
-        verticalAlign,
-        extraBottomMarginWas = this.extraBottomMargin,
-        extraTopMarginWas = this.extraTopMargin;
-
-    if (
-        optionsRangeSelector &&
-        optionsRangeSelector.enabled &&
-        !defined(rangeSelector)
-    ) {
-        this.options.rangeSelector.enabled = true;
-        this.rangeSelector = new RangeSelector(this);
-    }
-
+        verticalAlign;
 
     this.extraBottomMargin = false;
     this.extraTopMargin = false;
+    this.isDirtyBox = true; //    #7684 - ignored spacingBottom after update
 
     if (rangeSelector) {
 
         rangeSelector.render();
 
         verticalAlign = (
-            optionsRangeSelector &&
-            optionsRangeSelector.verticalAlign
+            options.rangeSelector &&
+            options.rangeSelector.verticalAlign
         ) || (
             rangeSelector.options && rangeSelector.options.verticalAlign
         );
@@ -1988,13 +1976,6 @@ addEvent(Chart, 'update', function (e) {
             } else if (verticalAlign !== 'middle') {
                 this.extraTopMargin = true;
             }
-        }
-
-        if (
-            this.extraBottomMargin !== extraBottomMarginWas ||
-            this.extraTopMargin !== extraTopMarginWas
-        ) {
-            this.isDirtyBox = true;
         }
 
     }

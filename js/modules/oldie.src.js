@@ -140,16 +140,15 @@ if (!Array.prototype.filter) {
 }
 
 if (!Array.prototype.some) {
-    H.somePolyfill = function (fn, ctx) { // legacy
+    H.some = function (fn, ctx) { // legacy
         var i = 0,
             len = this.length;
 
         for (; i < len; i++) {
             if (fn.call(ctx, this[i], i, this) === true) {
-                return true;
+                return;
             }
         }
-        return false;
     };
 }
 

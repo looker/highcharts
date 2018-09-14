@@ -102,9 +102,6 @@ H.StackItem.prototype = {
                     })
                     .add(group); // add to the labels-group
         }
-
-        // Rank it higher than data labels (#8742)
-        this.label.labelrank = chart.plotHeight;
     },
 
     /**
@@ -124,9 +121,9 @@ H.StackItem.prototype = {
                 1
             ),
             yZero = axis.translate(0), // stack origin
-            h = defined(y) && Math.abs(y - yZero), // stack height
+            h = Math.abs(y - yZero), // stack height
             x = chart.xAxis[0].translate(stackItem.x) + xOffset, // x position
-            stackBox = defined(y) && stackItem.getStackBox(
+            stackBox = stackItem.getStackBox(
                 chart,
                 stackItem,
                 x,
@@ -138,7 +135,7 @@ H.StackItem.prototype = {
             label = stackItem.label,
             alignAttr;
 
-        if (label && stackBox) {
+        if (label) {
             // Align the label to the box
             label.align(stackItem.alignOptions, null, stackBox);
 

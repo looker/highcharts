@@ -298,7 +298,6 @@ extend(Legend.prototype, {
 
         item.checkbox = createElement('input', {
             type: 'checkbox',
-            className: 'highcharts-legend-checkbox',
             checked: item.selected,
             defaultChecked: item.selected // required by IE7
         }, legend.options.itemCheckboxStyle, legend.chart.container);
@@ -370,8 +369,9 @@ extend(Chart.prototype, /** @lends Chart.prototype */ {
     },
 
     /**
-     * Zoom the chart out after a user has zoomed in. See also
-     * [Axis.setExtremes](/class-reference/Highcharts.Axis#setExtremes).
+     * Zoom out to 1:1.
+     *
+     * @private
      */
     zoomOut: function () {
         fireEvent(this, 'selection', { resetSelection: true }, this.zoom);

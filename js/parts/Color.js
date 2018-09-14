@@ -3,17 +3,6 @@
  *
  * License: www.highcharts.com/license
  */
-
-/**
- * A valid color to be parsed and handled by Highcharts. Highcharts internally
- * supports hex colors like `#ffffff`, rgb colors like `rgb(255,255,255)` and
- * rgba colors like `rgba(255,255,255,1)`. Other colors may be supported by the
- * browsers and displayed correctly, but Highcharts is not able to process them
- * and apply concepts like opacity and brightening.
- *
- * @typedef {string} Highcharts.ColorString
- */
-
 'use strict';
 import H from './Globals.js';
 import './Utilities.js';
@@ -24,13 +13,17 @@ var each = H.each,
     pInt = H.pInt;
 
 /**
+ * @typedef {string} ColorString
+ * A valid color to be parsed and handled by Highcharts. Highcharts internally
+ * supports hex colors like `#ffffff`, rgb colors like `rgb(255,255,255)` and
+ * rgba colors like `rgba(255,255,255,1)`. Other colors may be supported by the
+ * browsers and displayed correctly, but Highcharts is not able to process them
+ * and apply concepts like opacity and brightening.
+ */
+/**
  * Handle color operations. The object methods are chainable.
- *
+ * @param {String} input The input color in either rbga or hex format
  * @ignore
- * @class Highcharts.Color
- *
- * @param {Highcharts.ColorString} input
- *        The input color in either rbga or hex format
  */
 H.Color = function (input) {
     // Backwards compatibility, allow instanciation without new
@@ -73,14 +66,7 @@ H.Color.prototype = {
 
     /**
      * Parse the input color to rgba array
-     *
-     * @private
-     * @function Highcharts.Color#init
-     *
-     * @param  {Highcharts.ColorString} input
-     *         The input color in either rbga or hex format
-     *
-     * @return {void}
+     * @param {String} input
      */
     init: function (input) {
         var result,
@@ -150,15 +136,8 @@ H.Color.prototype = {
     },
 
     /**
-     * Return the color in the specified format
-     *
-     * @function Highcharts.Color#get
-     *
-     * @param  {string} format
-     *         Possible values are 'a', 'rgb', undefined
-     *
-     * @return {Highcharts.ColorString}
-     *         This color as a string.
+     * Return the color a specified format
+     * @param {String} format
      */
     get: function (format) {
         var input = this.input,
@@ -188,15 +167,8 @@ H.Color.prototype = {
     },
 
     /**
-     * Brighten the color instance.
-     *
-     * @function Highcharts.Color#brighten
-     *
-     * @param  {number} alpha
-     *         The alpha value.
-     *
-     * @return {Highcharts.ColorString}
-     *         This color with modifications.
+     * Brighten the color
+     * @param {Number} alpha
      */
     brighten: function (alpha) {
         var i,
@@ -223,34 +195,24 @@ H.Color.prototype = {
     },
 
     /**
-     * Set the color's opacity to a given alpha value.
-     *
-     * @function Highcharts.Color#setOpacity
-     *
-     * @param  {number} alpha
-     *         Opacity between 0 and 1.
-     *
-     * @return {Highcharts.ColorString}
-     *         Color with modifications.
+     * Set the color's opacity to a given alpha value
+     * @param {Number} alpha
      */
     setOpacity: function (alpha) {
         this.rgba[3] = alpha;
         return this;
     },
 
-    /**
+    /*
      * Return an intermediate color between two colors.
-     *
-     * @function Highcharts.Color#tweenTo
      *
      * @param  {Highcharts.Color} to
      *         The color object to tween to.
-     *
-     * @param  {number} pos
+     * @param  {Number} pos
      *         The intermediate position, where 0 is the from color (current
      *         color item), and 1 is the `to` color.
      *
-     * @return {Highcharts.ColorString}
+     * @return {String}
      *         The intermediate color in rgba notation.
      */
     tweenTo: function (to, pos) {

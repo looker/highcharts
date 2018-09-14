@@ -3163,9 +3163,7 @@ H.Series = H.seriesType('line', null, { // base series options
      *
      * @param  {Array<*>} data
      *         Takes an array of data in the same format as described under
-     *         `series.{type}.data` for the given series type, for example a
-     *         line series would take data in the form described under
-     *         [series.line.data](https://api.highcharts.com/highcharts/series.line.data).
+     *         `series.typedata` for the given series type.
      *
      * @param  {boolean|undefined} [redraw=true]
      *         Whether to redraw the chart after the series is altered. If doing
@@ -3226,10 +3224,7 @@ H.Series = H.seriesType('line', null, { // base series options
             oldDataLength &&
             !series.cropped &&
             !series.hasGroupedData &&
-            series.visible &&
-            // Soft updating has no benefit in boost, and causes JS error
-            // (#8355)
-            !series.isSeriesBoosting
+            series.visible
         ) {
             updatedData = this.updateData(data);
         }
@@ -3416,10 +3411,8 @@ H.Series = H.seriesType('line', null, { // base series options
 
             // only crop if it's actually spilling out
             } else if (
-                series.yData && (
-                    processedXData[0] < min ||
-                    processedXData[dataLength - 1] > max
-                )
+                processedXData[0] < min ||
+                processedXData[dataLength - 1] > max
             ) {
                 croppedData = this.cropData(
                     series.xData,
