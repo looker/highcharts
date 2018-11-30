@@ -1,6 +1,6 @@
 {
   "name": "lkhighcharts",
-  "version": "6.2.0-looker.1",
+  "version": "6.2.0-looker.2",
   "description": "JavaScript charting framework",
   "main": "highcharts.js",
   "author": "Highsoft AS <support@highcharts.com> (http://www.highcharts.com/about)",
