@@ -177,12 +177,8 @@ extend(SVGElement.prototype, /** @lends SVGElement.prototype */ {
                 (
                     (textWidth > wrapper.oldTextWidth) ||
                     (wrapper.textPxLength || getTextPxLength()) > textWidth
-                ) && (
-                    // Only set the width if the text is able to word-wrap, or
-                    // text-overflow is ellipsis (#9537)
-                    /[ \-]/.test(elem.textContent || elem.innerText) ||
-                    elem.style.textOverflow === 'ellipsis'
-                )
+                ) &&
+                /[ \-]/.test(elem.textContent || elem.innerText)
             ) { // #983, #1254
                 css(elem, {
                     width: textWidth + 'px',
